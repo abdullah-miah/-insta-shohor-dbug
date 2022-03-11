@@ -2,11 +2,11 @@ let posts=[ ];
 
 const likedPostsId = [];
 const reportedPostsId = [];
-
+// linked post
 const getLikedPosts = () => {
     return posts.filter((post) => likedPostsId.includes(post.id));
 };
-
+// report Post
 const getReportedPosts = () => {
     return posts.filter((post) => reportedPostsId.includes(post.id));
 };
@@ -14,18 +14,18 @@ const getReportedPosts = () => {
 const isLiked = (id) => {
     return likedPostsId?.length && !!likedPostsId.includes(id);
 };
-
+// click liked button bug fixed
 const addToLiked = (id) => {
     likedPostsId.push(id); 
     showPosts(posts);
 };
-
+// report post
 const reportPost = (id) => {
     reportedPostsId.push(id);
     const remainingPosts = posts.filter((post) => !reportedPostsId.includes(post.id));
     showPosts(remainingPosts);
 };
-
+// switchTab button
 const switchTab = (id) => {
     if (id === "posts") {
         document.getElementById( "posts" ).style.display = "grid";
@@ -48,6 +48,7 @@ const switchTab = (id) => {
 
 const createPost = (post) => {
     const image = post.image;
+    // description bug fixed
     let description;
     if(post.description.length> 30){
       description = post.description.slice(0,30) +"..."+"see more";
@@ -124,6 +125,7 @@ const createPost = (post) => {
                   <div class="post__description">
                     <small>
                       <a class="post__name--underline" href="#">
+                
                           ${post.comments[0].user}
                       </a>
                       ${post.comments[0].text}
@@ -147,6 +149,7 @@ const showPosts = (posts) => {
 };
 
 const displayLikedPosts = () => {
+  // repeat display like post bug fixed
   document.getElementById( "liked" ).innerHTML="";
     const likedPosts = getLikedPosts();
     likedPosts.forEach((post) => {
@@ -156,8 +159,10 @@ const displayLikedPosts = () => {
 };
 
 const displayReportedPosts = () => {
+  // repeat display report post bug fixed
   document.getElementById( "reported" ).innerHTML="";
     const reportedPosts = getReportedPosts();
+    // bug forEach fixed
     reportedPosts.forEach((post) => {
         const div = createPost(post);
         document.getElementById( "reported" ).appendChild(div);
